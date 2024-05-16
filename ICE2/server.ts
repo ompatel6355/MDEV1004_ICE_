@@ -4,22 +4,25 @@
  * Module dependencies.
  */
 
-var app = require('./Server/Config/app');
-var debug = require('debug')('ice2:server');
-var http = require('http');
+import app from './Server/Config/app';
+import debug from 'debug';
+debug('ice2:server');
+import http from 'http';
+import { HttpError } from 'http-errors';
+import { AddressInfo } from 'net';
 
 /**
  * Get port from environment and store in Express.
  */
 
-var port = normalizePort(process.env.PORT || '3000');
+let port = normalizePort(process.env.PORT || '3000');
 app.set('port', port);
 
 /**
  * Create HTTP server.
  */
 
-var server = http.createServer(app);
+const server = http.createServer(app);
 
 /**
  * Listen on provided port, on all network interfaces.
@@ -33,15 +36,18 @@ server.on('listening', onListening);
  * Normalize a port into a number, string, or false.
  */
 
-function normalizePort(val) {
+function normalizePort(val:string) : string | number | boolean
+{
   var port = parseInt(val, 10);
 
-  if (isNaN(port)) {
+  if (isNaN(port)) 
+  {
     // named pipe
     return val;
   }
 
-  if (port >= 0) {
+  if (port >= 0) 
+  {
     // port number
     return port;
   }
@@ -53,17 +59,20 @@ function normalizePort(val) {
  * Event listener for HTTP server "error" event.
  */
 
-function onError(error) {
-  if (error.syscall !== 'listen') {
+function onError(error:HttpError): void 
+{
+  if (error.syscall !== 'listen') 
+  {
     throw error;
   }
 
-  var bind = typeof port === 'string'
+  let bind = typeof port === 'string'
     ? 'Pipe ' + port
     : 'Port ' + port;
 
   // handle specific listen errors with friendly messages
-  switch (error.code) {
+  switch (error.code) 
+  {
     case 'EACCES':
       console.error(bind + ' requires elevated privileges');
       process.exit(1);
@@ -81,8 +90,9 @@ function onError(error) {
  * Event listener for HTTP server "listening" event.
  */
 
-function onListening() {
-  var addr = server.address();
+function onListening(): void 
+{
+  var addr = (server.address()) as string | AddressInfo
   var bind = typeof addr === 'string'
     ? 'pipe ' + addr
     : 'port ' + addr.port;
