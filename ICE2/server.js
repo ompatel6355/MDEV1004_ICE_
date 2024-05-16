@@ -4,8 +4,8 @@
  * Module dependencies.
  */
 
-var app = require('../app');
-var debug = require('debug')('ice1:server');
+var app = require('./Server/Config/app');
+var debug = require('debug')('ice2:server');
 var http = require('http');
 
 /**
