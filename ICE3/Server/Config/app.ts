@@ -3,8 +3,12 @@ import express, { NextFunction, Request, Response } from 'express';
 import path from 'path';
 import cookieParser from 'cookie-parser';
 import logger from 'morgan';
+import dotenv from 'dotenv';
+
+dotenv.config();
 
 import indexRouter from '../Routes/index';
+import { dot } from 'node:test/reporters';
 
 // create an express application
 const app = express();
