@@ -15,7 +15,7 @@ server.listen(port);
 server.on('error', onError);
 server.on('listening', onListening);
 function normalizePort(val) {
-    var port = parseInt(val, 10);
+    let port = parseInt(val, 10);
     if (isNaN(port)) {
         return val;
     }
@@ -45,8 +45,8 @@ function onError(error) {
     }
 }
 function onListening() {
-    var addr = (server.address());
-    var bind = typeof addr === 'string'
+    let addr = (server.address());
+    let bind = typeof addr === 'string'
         ? 'pipe ' + addr
         : 'port ' + addr.port;
     (0, debug_1.default)('Listening on ' + bind);
