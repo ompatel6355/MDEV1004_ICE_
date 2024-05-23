@@ -7,6 +7,18 @@ import dotenv from 'dotenv';
 
 dotenv.config();
 
+// import mongoose and related modules
+import mongoose from 'mongoose';
+import db from './db';
+
+mongoose.connect(db.remoteURI);
+
+// DB Connection Events
+mongoose.connection.on('connected', () => {
+  console.log(`Connected to MongoDB Atlas`);
+})
+
+
 import indexRouter from '../Routes/index';
 import { dot } from 'node:test/reporters';
 
