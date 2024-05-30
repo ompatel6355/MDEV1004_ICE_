@@ -1,6 +1,7 @@
 import { Request, Response, NextFunction } from 'express';
 
 import Movie from '../Models/movie';
+import { SanitizeArray } from '../Util';
 
 /**
  * This function displays the movie list in JSON format
@@ -23,6 +24,14 @@ export function DisplayMovieList(req: Request, res: Response, next: NextFunction
     })
 }
 
+/**
+ * This function displays a single movie by ID in JSON format
+ *
+ * @export
+ * @param {Request} req
+ * @param {Response} res
+ * @param {NextFunction} next
+ */
 export function DisplayMovieById(req: Request, res: Response, next: NextFunction) : void
 {
     // endpoint should be /api/:id
@@ -52,4 +61,37 @@ export function DisplayMovieById(req: Request, res: Response, next: NextFunction
             console.error(err);
         })
     }
+}
+
+export function AddMovie(req: Request, res:Response, next: NextFunction): void
+{
+    let genres = SanitizeArray(req.body.genres as string);
+    let directors = SanitizeArray(req.body.directors as string);
+    let actors = SanitizeArray(req.body.actors as string);
+    let writers = SanitizeArray(req.body.writers as string);
+
+    let movie = new Movie({
+        movieID: req.body.movieID,
+        title: req.body.title,
+        studio: req.body.studio,
+        genres: genres,
+        directors: directors,
+        writers: writers,
+        actors: actors,
+        length: req.body.length,
+        year: req.body.year,
+        shortDescription: req.body.shortDescription,
+        mpaRating: req.body.mpaRating,
+        criticsRating: req.body.criticsRating
+     });
+ 
+     Movie.create(movie)
+     .then(() =>
+     {
+        res.status(200).json({success: true, msg: "Movie added", data: movie});
+     })
+     .catch((err) =>
+     {
+        console.error(err);
+     })
 }
