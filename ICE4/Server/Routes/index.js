@@ -7,5 +7,6 @@ const express_1 = __importDefault(require("express"));
 const router = express_1.default.Router();
 const movie_1 = require("../Controllers/movie");
 router.get('/', function (req, res, next) { (0, movie_1.DisplayMovieList)(req, res, next); });
+router.get('/:id', function (req, res, next) { (0, movie_1.DisplayMovieById)(req, res, next); });
 exports.default = router;
 //# sourceMappingURL=index.js.map
