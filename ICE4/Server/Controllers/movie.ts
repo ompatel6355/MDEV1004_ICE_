@@ -156,3 +156,35 @@ export function UpdateMovie(req:Request, res:Response, next:NextFunction): void
         })
     }
 }
+
+/**
+ * This function deletes a movie from the database
+ *
+ * @export
+ * @param {Request} req
+ * @param {Response} res
+ * @param {NextFunction} next
+ */
+export function DeleteMovie(req:Request, res:Response, next:NextFunction): void
+{
+    // endpoint should be /api/delete/:id
+    let id = req.params.id;
+
+    // ensure that the id is valid
+    if (id.length != 24)
+    {
+        res.status(400).json({success: false, msg: "A valid ID is required to delete a movie", data: ""});
+    }
+    else
+    {
+        Movie.deleteOne({_id: id})
+        .then(() =>
+        {
+            res.status(200).json({success: true, msg: "Movie deleted", data: id});
+        })
+        .catch((err) =>
+        {
+            console.error(err);
+        })
+    }
+}

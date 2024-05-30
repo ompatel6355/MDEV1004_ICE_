@@ -3,7 +3,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.UpdateMovie = exports.AddMovie = exports.DisplayMovieById = exports.DisplayMovieList = void 0;
+exports.DeleteMovie = exports.UpdateMovie = exports.AddMovie = exports.DisplayMovieById = exports.DisplayMovieList = void 0;
 const movie_1 = __importDefault(require("../Models/movie"));
 const Util_1 = require("../Util");
 function DisplayMovieList(req, res, next) {
@@ -100,4 +100,20 @@ function UpdateMovie(req, res, next) {
     }
 }
 exports.UpdateMovie = UpdateMovie;
+function DeleteMovie(req, res, next) {
+    let id = req.params.id;
+    if (id.length != 24) {
+        res.status(400).json({ success: false, msg: "A valid ID is required to delete a movie", data: "" });
+    }
+    else {
+        movie_1.default.deleteOne({ _id: id })
+            .then(() => {
+            res.status(200).json({ success: true, msg: "Movie deleted", data: id });
+        })
+            .catch((err) => {
+            console.error(err);
+        });
+    }
+}
+exports.DeleteMovie = DeleteMovie;
 //# sourceMappingURL=movie.js.map
