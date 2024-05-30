@@ -17,13 +17,23 @@ function DisplayMovieList(req, res, next) {
 exports.DisplayMovieList = DisplayMovieList;
 function DisplayMovieById(req, res, next) {
     let id = req.params.id;
-    movie_1.default.findById({ _id: id })
-        .then((data) => {
-        res.status(200).json({ success: true, msg: "One Movie Retrived and Displayed", data: data });
-    })
-        .catch((err) => {
-        console.error(err);
-    });
+    if (id.length != 24) {
+        res.status(400).json({ success: false, msg: "A valid ID is required to retrive a movie", data: "" });
+    }
+    else {
+        movie_1.default.findById({ _id: id })
+            .then((data) => {
+            if (data) {
+                res.status(200).json({ success: true, msg: "One Movie Retrived and Displayed", data: data });
+            }
+            else {
+                res.status(404).json({ success: false, msg: "Movie not found", data: "" });
+            }
+        })
+            .catch((err) => {
+            console.error(err);
+        });
+    }
 }
 exports.DisplayMovieById = DisplayMovieById;
 //# sourceMappingURL=movie.js.map
