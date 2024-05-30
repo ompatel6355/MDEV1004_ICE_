@@ -65,10 +65,10 @@ export function DisplayMovieById(req: Request, res: Response, next: NextFunction
 
 export function AddMovie(req: Request, res:Response, next: NextFunction): void
 {
-    let genres = SanitizeArray(req.body.genres as string);
-    let directors = SanitizeArray(req.body.directors as string);
-    let actors = SanitizeArray(req.body.actors as string);
-    let writers = SanitizeArray(req.body.writers as string);
+    let genres = (req.body.genres) ?  SanitizeArray(req.body.genres as string) : SanitizeArray("");
+    let directors = (req.body.directors) ? SanitizeArray(req.body.directors as string) : SanitizeArray("");
+    let actors = (req.body.actors) ? SanitizeArray(req.body.actors as string) : SanitizeArray("");
+    let writers = (req.body.writers) ? SanitizeArray(req.body.writers as string) : SanitizeArray("");
 
     let movie = new Movie({
         movieID: req.body.movieID,

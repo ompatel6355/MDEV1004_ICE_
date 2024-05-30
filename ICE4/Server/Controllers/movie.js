@@ -38,10 +38,10 @@ function DisplayMovieById(req, res, next) {
 }
 exports.DisplayMovieById = DisplayMovieById;
 function AddMovie(req, res, next) {
-    let genres = (0, Util_1.SanitizeArray)(req.body.genres);
-    let directors = (0, Util_1.SanitizeArray)(req.body.directors);
-    let actors = (0, Util_1.SanitizeArray)(req.body.actors);
-    let writers = (0, Util_1.SanitizeArray)(req.body.writers);
+    let genres = (req.body.genres) ? (0, Util_1.SanitizeArray)(req.body.genres) : (0, Util_1.SanitizeArray)("");
+    let directors = (req.body.directors) ? (0, Util_1.SanitizeArray)(req.body.directors) : (0, Util_1.SanitizeArray)("");
+    let actors = (req.body.actors) ? (0, Util_1.SanitizeArray)(req.body.actors) : (0, Util_1.SanitizeArray)("");
+    let writers = (req.body.writers) ? (0, Util_1.SanitizeArray)(req.body.writers) : (0, Util_1.SanitizeArray)("");
     let movie = new movie_1.default({
         movieID: req.body.movieID,
         title: req.body.title,
