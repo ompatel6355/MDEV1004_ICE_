@@ -1,7 +1,7 @@
 import express from 'express';
 const router = express.Router();
 
-import { DisplayMovieList, DisplayMovieById, AddMovie } from '../Controllers/movie';
+import { DisplayMovieList, DisplayMovieById, AddMovie, UpdateMovie } from '../Controllers/movie';
 
 /* List of Routes (endpoints) */
 
@@ -13,5 +13,8 @@ router.get('/:id', (req, res, next) => {  DisplayMovieById(req, res, next); });
 
 /* Add Movie */
 router.post('/add', (req, res, next) => {  AddMovie(req, res, next); });
+
+/* Update Movie */
+router.put('/update/:id', (req, res, next) => {  UpdateMovie(req, res, next); });
 
 export default router;
