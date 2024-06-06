@@ -4,6 +4,14 @@ import mongoose from 'mongoose';
 
 import User from '../Models/user';
 
+/**
+ * Processes the Registration Request
+ *
+ * @export
+ * @param {Request} req
+ * @param {Response} res
+ * @param {NextFunction} next
+ */
 export function ProcessRegistration(req:Request, res:Response, next:NextFunction): void
 {
     // instantiate a new user object
@@ -39,6 +47,14 @@ export function ProcessRegistration(req:Request, res:Response, next:NextFunction
     });
 }
 
+/**
+ * Processes the Login Request
+ *
+ * @export
+ * @param {Request} req
+ * @param {Response} res
+ * @param {NextFunction} next
+ */
 export function ProcessLogin(req:Request, res:Response, next:NextFunction): void
 {
     passport.authenticate('local', (err: any, user: any, info: any)=>
@@ -71,6 +87,14 @@ export function ProcessLogin(req:Request, res:Response, next:NextFunction): void
     })(req, res, next);
 }
 
+/**
+ * Processes the Logout Request
+ *
+ * @export
+ * @param {Request} req
+ * @param {Response} res
+ * @param {NextFunction} next
+ */
 export function ProcessLogout(req:Request, res:Response, next:NextFunction): void
 {
     req.logOut(()=>{
