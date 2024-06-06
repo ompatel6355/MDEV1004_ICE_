@@ -70,3 +70,11 @@ export function ProcessLogin(req:Request, res:Response, next:NextFunction): void
         });
     })(req, res, next);
 }
+
+export function ProcessLogout(req:Request, res:Response, next:NextFunction): void
+{
+    req.logOut(()=>{
+        console.log("User Logged out successfully");
+        return res.json({success: true, msg: "User Logged out successfully", data: null});
+    });
+}
