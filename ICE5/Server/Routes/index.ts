@@ -2,7 +2,7 @@ import express from 'express';
 const router = express.Router();
 
 import { DisplayMovieList, DisplayMovieById, AddMovie, UpdateMovie, DeleteMovie } from '../Controllers/movie';
-import { ProcessRegistration } from '../Controllers/auth';
+import { ProcessLogin, ProcessRegistration } from '../Controllers/auth';
 
 /* List of Movie Routes (endpoints) */
 
@@ -22,6 +22,11 @@ router.put('/update/:id', (req, res, next) => {  UpdateMovie(req, res, next); })
 router.delete('/delete/:id', (req, res, next) => {  DeleteMovie(req, res, next); });
 
 /* List of Authentication Routes (endpoints) */
+
+/* Register User */
 router.post('/register', (req, res, next) => {  ProcessRegistration(req, res, next); });
+
+/* Login User */
+router.post('/login', (req, res, next) => {  ProcessLogin(req, res, next); });
 
 export default router;

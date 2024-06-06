@@ -38,3 +38,35 @@ export function ProcessRegistration(req:Request, res:Response, next:NextFunction
         });
     });
 }
+
+export function ProcessLogin(req:Request, res:Response, next:NextFunction): void
+{
+    passport.authenticate('local', (err: any, user: any, info: any)=>
+    {
+        // are there any server errors?
+        if(err)
+        {
+            console.error(err);
+            return res.status(400).json({success: false, msg: "ERROR: Server Error", data: null});
+        }
+
+        // are there any login errors?
+        if(!user)
+        {
+            console.error("Login Error: User Credentials Error or User Not Found");
+            return res.status(400).json({success: false, msg: "ERROR: Login Error", data: null});
+        }
+
+        req.login(user, (err) =>
+        {
+            // are there any database errors?
+            if(err)
+            {
+                console.error(err);
+                return res.status(400).json({success: false, msg: "ERROR: Database Error", data: null});
+            }
+
+            return res.json({success: true, msg: "User Logged in successfully", data: user});
+        });
+    })(req, res, next);
+}
