@@ -1,7 +1,7 @@
 import mongoose, { PassportLocalDocument, Schema, model } from 'mongoose';
 import passportLocalMongoose from 'passport-local-mongoose';
 
-export interface IUser extends mongoose.Document
+export interface IUser extends PassportLocalDocument
 {
     username: string,
     emailAddress: string,
@@ -40,7 +40,7 @@ const userSchema = new Schema<IUser>
 
 userSchema.plugin(passportLocalMongoose);
 
-const User = mongoose.model<IUser>('User', userSchema);
+const User = mongoose.model<IUser & PassportLocalDocument>('User', userSchema);
 
 declare global
 {
